@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SimpleSourceDestinationMapperIntegrationTest {
     private final SimpleSourceDestinationMapper mapper
             = Mappers.getMapper(SimpleSourceDestinationMapper.class);
+
     @Test
     public void givenSourceToDestination_whenMaps_thenCorrect() {
         SimpleSource simpleSource = new SimpleSource();
@@ -20,7 +21,18 @@ public class SimpleSourceDestinationMapperIntegrationTest {
         SimpleDestination destination = mapper.sourceToDestination(simpleSource);
 
         assertEquals(simpleSource.getName(), destination.getName());
-        assertEquals(simpleSource.getDescription(),
-                destination.getDescription());
+        assertEquals(simpleSource.getDescription(), destination.getDescription());
+    }
+
+    @Test
+    public void givenDestinationToSource_whenMaps_thenCorrect(){
+        SimpleDestination destination=new SimpleDestination();
+        destination.setName("destinationName");
+        destination.setDescription("destinationDescription");
+        SimpleSource source=mapper.destinationToSource(destination);
+
+        assertEquals(source.getName(),destination.getName());
+        assertEquals(source.getDescription(),destination.getDescription());
+
     }
 }
